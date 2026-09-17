@@ -1,20 +1,24 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import ClienteForm from "../features/cliente/page/clienteForm";
 import ClientePage from "../features/cliente/page/ClientePage";
+
+import EmpresaPage from "../features/empresa/page/empresaPage";
 import Home from "../features/home/page/Home";
+import ProdutoPage from "../features/produto/page/ProdutoPage";
 
 export default function Router() {
 
-   return (
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/cliente" element={<ClientePage />} />
+                <Route path="/produto" element={<ProdutoPage />} />
+                <Route path="/empresa" element={<EmpresaPage />} />
+                <Route path="/cliente-form" element={<ClienteForm />} />
 
-       <BrowserRouter>
-
-           <Routes>
-            <Route path="/home" element={<Home />} />
-               <Route path="/cliente" element={<ClientePage />} />
-           </Routes>
-
-       </BrowserRouter>
-
-   );
+            </Routes>
+        </BrowserRouter>
+    );
 }

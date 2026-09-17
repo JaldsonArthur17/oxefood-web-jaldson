@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import ClienteForm from "../features/cliente/page/clienteForm";
+import ClienteForm from "../features/cliente/page/ClienteForm";
 import ClientePage from "../features/cliente/page/ClientePage";
 
-import EmpresaPage from "../features/empresa/page/empresaPage";
+import EmpresaPage from "../features/empresa/page/EmpresaPage";
 import Home from "../features/home/page/Home";
 import ProdutoPage from "../features/produto/page/ProdutoPage";
 

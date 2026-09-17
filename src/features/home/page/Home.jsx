@@ -21,8 +21,8 @@ export default function Home() {
                        <h1 className="text-5xl font-bold"> Bem vindo! </h1>
                        <p className="py-6">
                            Este sistema foi desenvolvido na disciplina de Desenvolvimento para WEB. <br/> <br/>
-                           Para acessar o código da API do sistema, acesse: <a href='#' target='_blank' style={{color: 'blue', textDecoration: 'bold'}}> Github </a>  <br/>
-                           Para acessar o código do Módulo WEB, acesse: <a href='#' target='_blank'style={{color: 'blue'}}> Github </a>
+                           Para acessar o código da API do sistema, acesse: <a href='https://github.com/JaldsonArthur17/oxefood-api-jaldson.git' target='_blank' style={{color: 'blue', textDecoration: 'bold'}}> Github </a>  <br/>
+                           Para acessar o código do Módulo WEB, acesse: <a href='https://github.com/JaldsonArthur17/oxefood-web-jaldson.git' target='_blank'style={{color: 'blue'}}> Github </a>
                        </p>
                    </div>
                </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../shared/components/Breadcrumbs";
 import CrudActions from "../../../shared/components/CrudActions";
 import Footer from "../../../shared/components/Footer";
@@ -7,9 +8,12 @@ import NewButton from "../../../shared/components/NewButton";
 import { listar } from "../../../shared/services/crudService";
 import { formatarData } from "../../../shared/util/dateUtils";
 import { MAPPING_CONTROLLER_CLIENTE } from "../service/clienteService";
+
 export default function ClientePage() {
 
    const [lista, setLista] = useState([]);
+   const navigate = useNavigate();
+
 
    useEffect(() => {
        carregar();
@@ -20,7 +24,9 @@ export default function ClientePage() {
        setLista(data);
    }
 
-   function editar(id) {}
+   function editar(id) {
+    navigate(`/cliente-form/${id}`);
+   }
 
    async function confirmarRemover(id) {
        if (confirm("Deseja realmente excluir este cliente?")) {

@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IMaskInput } from 'react-imask';
+import { useParams } from "react-router-dom";
 import { toast } from 'react-toastify';
 import BackButton from "../../../shared/components/BackButton";
 import Breadcrumbs from "../../../shared/components/Breadcrumbs";
 import Footer from "../../../shared/components/Footer";
 import Menu from "../../../shared/components/Menu";
 import SaveButton from "../../../shared/components/SaveButton";
-import { cadastrar } from "../../../shared/services/crudService";
+import { buscarPorId, cadastrar } from "../../../shared/services/crudService";
 import { MAPPING_CONTROLLER_CLIENTE } from "../service/clienteService";
 
 export default function ClienteForm() {
 
+    const { idCliente } = useParams();
     const [cliente, setCliente] = useState({
+        id: null,
         nome: "",
         cpf: "",
         foneCelular: "",
@@ -19,8 +22,15 @@ export default function ClienteForm() {
         dataNascimento: ""
     });
 
+    useEffect(() => {
+
+        if (idCliente) {
+           carregarCliente();
+       }
+   }, [idCliente]);
+
+
     async function salvar() {
-        
         try {
             await cadastrar(MAPPING_CONTROLLER_CLIENTE, cliente);
             toast.success("Cliente cadastrado com sucesso!");
@@ -29,35 +39,55 @@ export default function ClienteForm() {
         }
     }
 
-    return (
+    async function carregarCliente() {
+       try {
+           const data = await buscarPorId(
+               MAPPING_CONTROLLER_CLIENTE,
+               idCliente
+           );
 
+           setCliente({
+               id: data.id,
+               nome: data.nome ?? "",
+               cpf: data.cpf ?? "",
+               foneCelular: data.foneCelular ?? "",
+               foneFixo: data.foneFixo ?? "",
+               dataNascimento: data.dataNascimento ?? ""
+           });
+
+       } catch (erro) {
+           toast.error("Erro ao carregar cliente.");
+       }
+   }
+
+    return (
         <div>
             <Menu />
 
-            <Breadcrumbs items={[
+            {idCliente ?
+                <Breadcrumbs items={[
                 { label: "Cliente" },
-                { label: "Cadastrar" }
-            ]} />
-<div style={{ marginTop: '40px', marginLeft: '10%', marginRight: '10%' }}>
+                {  label: "Alterar" }
+                ]} />
+                :
+                <Breadcrumbs items={[
+                { label: "Cliente" },
+                {  label: "Cadastrar" }
+                ]} />
+                }
 
+            <div style={{ marginTop: '40px', marginLeft: '10%', marginRight: '10%' }}>
                 <div className="overflow-x-auto shadow-sm">
-
                     <div className="flex items-center justify-between mb-6" style={{marginTop: '20px', marginLeft: '10px', marginRight: '10px'}}>
-
                         <h1 className="text-3xl font-bold text-gray-800">
-                            Novo Cliente
+                            {idCliente ? "Alterar Cliente" : "Novo Cliente"}
                         </h1>
-
                     </div>
-
                     <div className="divider divider-info" />
-
                     <div className="overflow-x-auto" style={{padding: '30px'}}>
                         <form>
-
                             <div className="flex w-full" >
                                 <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
-
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="nome">Nome</label>
                                         <input

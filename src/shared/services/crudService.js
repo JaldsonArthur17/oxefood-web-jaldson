@@ -24,6 +24,11 @@ export async function atualizar(mappingController, obj) {
     return response.data;
 }
 
+export async function atualizarPorId(mappingController, id, obj) {
+    const response = await api.put(mappingController + '/' + id, obj);
+    return response.data;
+}
+
 export async function remover(mappingController, id) {
 
     await api.delete(mappingController+'/'+id);

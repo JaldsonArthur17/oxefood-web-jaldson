@@ -7,7 +7,7 @@ import Breadcrumbs from "../../../shared/components/Breadcrumbs";
 import Footer from "../../../shared/components/Footer";
 import Menu from "../../../shared/components/Menu";
 import SaveButton from "../../../shared/components/SaveButton";
-import { buscarPorId, cadastrar } from "../../../shared/services/crudService";
+import { atualizar, buscarPorId, cadastrar } from "../../../shared/services/crudService";
 import { MAPPING_CONTROLLER_CLIENTE } from "../service/clienteService";
 
 export default function ClienteForm() {
@@ -30,14 +30,23 @@ export default function ClienteForm() {
    }, [idCliente]);
 
 
-    async function salvar() {
-        try {
-            await cadastrar(MAPPING_CONTROLLER_CLIENTE, cliente);
-            toast.success("Cliente cadastrado com sucesso!");
-        } catch (erro) {
-            toast.error("Erro ao cadastrar cliente.");
-        }
-    }
+    async function salvar() {      
+       try {
+
+           if (idCliente) {
+
+               await atualizar(MAPPING_CONTROLLER_CLIENTE, cliente);
+               toast.success("Cliente alterado com sucesso!");
+
+           } else {
+
+               await cadastrar(MAPPING_CONTROLLER_CLIENTE, cliente);
+               toast.success("Cliente cadastrado com sucesso!");
+           }
+       } catch (erro) {
+           toast.error("Erro ao salvar cliente.");
+       }
+   }
 
     async function carregarCliente() {
        try {
@@ -198,4 +207,4 @@ export default function ClienteForm() {
         </div>
 
     );
-}
+    }

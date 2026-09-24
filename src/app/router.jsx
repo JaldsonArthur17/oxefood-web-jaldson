@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ClienteForm from "../features/cliente/page/ClienteForm";
 import ClientePage from "../features/cliente/page/ClientePage";
-import EmpresaPage from "../features/empresa/page/EmpresaPage";
+import EmpresaPage from "../features/empresa/page/empresaPage";
 import Home from "../features/home/page/Home";
 import ProdutoPage from "../features/produto/page/ProdutoPage";
 
@@ -15,6 +15,8 @@ export default function Router() {
                 <Route path="/produto" element={<ProdutoPage />} />
                 <Route path="/empresa" element={<EmpresaPage />} />
                 <Route path="/cliente-form/:idCliente?" element={<ClienteForm />} />
+                <Route path="/produto-form" element={<ProdutoForm />} />
+                <Route path="/empresa-form" element={<EmpresaForm />} />
             </Routes>
         </BrowserRouter>
     );

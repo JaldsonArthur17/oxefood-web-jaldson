@@ -17,8 +17,8 @@ export default function Router() {
                 <Route path="/produto" element={<ProdutoPage />} />
                 <Route path="/empresa" element={<EmpresaPage />} />
                 <Route path="/cliente-form/:idCliente?" element={<ClienteForm />} />
-                <Route path="/produto-form" element={<ProdutoForm />} />
-                <Route path="/empresa-form" element={<EmpresaForm />} />
+                <Route path="/produto-form/:idProduto?" element={<ProdutoForm />} />
+                <Route path="/empresa-form/:idEmpresa?" element={<EmpresaForm />} />
             </Routes>
         </BrowserRouter>
     );

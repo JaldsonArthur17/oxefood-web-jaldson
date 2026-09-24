@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../shared/components/Breadcrumbs";
 import CrudActions from "../../../shared/components/CrudActions";
 import Footer from "../../../shared/components/Footer";
@@ -10,6 +11,7 @@ import { MAPPING_CONTROLLER_PRODUTO } from "../service/produtoService";
 export default function ProdutoPage() {
 
     const [lista, setLista] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         carregar();
@@ -20,7 +22,9 @@ export default function ProdutoPage() {
         setLista(data);
     }
 
-    function editar(id) {}
+    function editar(id) {
+        navigate(`/produto-form/${id}`);
+    }
 
     async function confirmarRemover(id) {
         if (confirm("Deseja realmente excluir este produto?")) {

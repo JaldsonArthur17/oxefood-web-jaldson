@@ -81,7 +81,7 @@ export default function EmpresaForm() {
                     <div className="overflow-x-auto" style={{ padding: '30px' }}>
                         <form>
                             <div className="flex w-full">
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="nomeEmpresarial">Nome Empresarial</label>
                                         <input type="text" id="nomeEmpresarial" className="input input-bordered w-full"
@@ -89,7 +89,7 @@ export default function EmpresaForm() {
                                             onChange={(e) => setEmpresa({ ...empresa, nomeEmpresarial: e.target.value })} />
                                     </fieldset>
                                 </div>
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="nomeFantasia">Nome Fantasia</label>
                                         <input type="text" id="nomeFantasia" className="input input-bordered w-full"
@@ -100,7 +100,7 @@ export default function EmpresaForm() {
                             </div>
 
                             <div className="flex w-full">
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="cnpj">CNPJ</label>
                                         <IMaskInput mask="00.000.000/0000-00" value={empresa.cnpj}
@@ -108,7 +108,7 @@ export default function EmpresaForm() {
                                             className="input input-bordered w-full" id="cnpj" />
                                     </fieldset>
                                 </div>
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="inscricaoEstadual">Inscrição Estadual</label>
                                         <IMaskInput mask="000.000.000.000" value={empresa.inscricaoEstadual}
@@ -116,7 +116,7 @@ export default function EmpresaForm() {
                                             className="input input-bordered w-full" id="inscricaoEstadual" />
                                     </fieldset>
                                 </div>
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="site">Site</label>
                                         <input type="text" id="site" placeholder="https://www.exemplo.com.br"
@@ -128,7 +128,7 @@ export default function EmpresaForm() {
                             </div>
 
                             <div className="flex w-full">
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="fone">Fone</label>
                                         <IMaskInput mask="(00) 0000-0000" value={empresa.fone}
@@ -136,7 +136,7 @@ export default function EmpresaForm() {
                                             className="input input-bordered w-full" id="fone" />
                                     </fieldset>
                                 </div>
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="foneAlternativo">Fone Alternativo</label>
                                         <IMaskInput mask="(00) 00000-0000" value={empresa.foneAlternativo}
@@ -147,12 +147,12 @@ export default function EmpresaForm() {
                             </div>
 
                             <div className="flex w-full">
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <div style={{ marginTop: '50px', textAlign: 'left' }}>
                                         <BackButton destino="/empresa" />
                                     </div>
                                 </div>
-                                <div className="card rounded-box grid grow p-8">
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
                                     <div style={{ marginTop: '50px', textAlign: 'right' }}>
                                         <SaveButton save={() => salvar()} />
                                     </div>

@@ -7,7 +7,7 @@ import Menu from "../../../shared/components/Menu";
 import SaveButton from "../../../shared/components/SaveButton";
 import { cadastrar } from "../../../shared/services/crudService";
 import { MAPPING_CONTROLLER_PRODUTO } from "../../produto/service/produtoService";
-export default function EmpresaForm() {
+export default function ProdutoForm() {
 
     const [produto, setProduto] = useState({
         codigo: "",
@@ -148,7 +148,7 @@ export default function EmpresaForm() {
                                 <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
 
                                     <div style={{ marginTop: '50px', textAlign: 'left' }}>
-                                        <BackButton destino="/cliente" />
+                                        <BackButton destino="/produto'" />
                                     </div>
 
                                 </div>

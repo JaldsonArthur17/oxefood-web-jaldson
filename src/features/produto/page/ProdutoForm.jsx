@@ -169,6 +169,20 @@ async function carregarProduto() {
                                             }
                                         />
                                     </fieldset>
+                                    <fieldset className="fieldset w-full">
+                                        <label className="fieldset-legend" htmlFor="tempoEntregaMaximo">Tempo de Entrega Máximo</label>
+                                        <input
+                                            type="number"
+                                            id="tempoEntregaMaximo"
+                                            min="0"
+                                            step="1"
+                                            className="input input-bordered w-full"
+                                            value={produto.tempoEntregaMaximo}
+                                            onChange={(e) =>
+                                                setProduto({ ...produto, tempoEntregaMaximo: Number(e.target.value) })
+                                            }
+                                        />
+                                    </fieldset>
 
                                 </div>
                             </div>

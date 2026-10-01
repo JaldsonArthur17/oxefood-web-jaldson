@@ -5,13 +5,24 @@ import CrudActions from "../../../shared/components/CrudActions";
 import Footer from "../../../shared/components/Footer";
 import Menu from "../../../shared/components/Menu";
 import NewButton from "../../../shared/components/NewButton";
-import { listar } from "../../../shared/services/crudService";
+import { buscarPorId, listar, remover } from "../../../shared/services/crudService";
 import { MAPPING_CONTROLLER_EMPRESA } from "../service/empresaService";
 
 export default function EmpresaPage() {
 
     const [lista, setLista] = useState([]);
     const navigate = useNavigate();
+    const [empresa, setEmpresa] = useState({
+        id: null,
+        nomeEmpresarial: "",
+        nomeFantasia:"",
+        cnpj: "",
+        inscricaoEstadual:"",
+        site: "",
+        fone: "",
+        foneAlternativo:"",
+
+    });
 
     useEffect(() => {
         carregar();
@@ -27,8 +38,47 @@ export default function EmpresaPage() {
     }
 
     async function confirmarRemover(id) {
-        if (confirm("Deseja realmente excluir esta empresa?")) {
-            console.log(id);
+           if (!confirm("Deseja realmente excluir esta empresa?")) {
+            return;
+        }
+    
+        try {
+    
+            await remover(MAPPING_CONTROLLER_EMPRESA, id);
+            await carregar();
+            toast.success("Empresa removida com sucesso!");
+    
+        } catch (erro) {
+    
+            console.error(erro);
+            toast.error("Erro ao tentar remover a empresa.");
+        }
+    }
+
+    async function detalhar(id) {
+    
+        try {
+        
+            const data = await buscarPorId(
+                MAPPING_CONTROLLER_EMPRESA,
+                id
+            );
+    
+            setEmpresa({
+                id: data.id,
+                nomeEmpresarial: data.nomeEmpresarial ?? "",
+                nomeFantasia: data.nomeFantasia ?? "",
+                cnpj: data.cnpj ?? "",
+                inscricaoEstadual: data.inscricaoEstadual ?? "",
+                site: data.site ?? "",
+                fone: data.fone ?? "",
+                foneAlternativo: data.foneAlternativo ?? ""
+            });
+    
+            document.getElementById('modal-detalhar').showModal()
+    
+        } catch (erro) {
+            toast.error("Erro ao carregar empresa.");
         }
     }
 
@@ -69,6 +119,7 @@ export default function EmpresaPage() {
                                         <td style={{ textAlign: 'center' }}>{empresa.fone}</td>
                                         <td style={{ textAlign: 'center' }}>
                                             <CrudActions
+                                                onDetail={() => detalhar(empresa.id)}
                                                 onEdit={() => editar(empresa.id)}
                                                 onDelete={() => confirmarRemover(empresa.id)}
                                             />
@@ -80,6 +131,38 @@ export default function EmpresaPage() {
                     </div>
                 </div>
             </div>
+            <dialog id="modal-detalhar" className="modal">
+                <div className="modal-box">   
+                    <h3 className="font-bold text-lg">Dados da Empresa</h3>
+                    <div className="divider" />
+                    <p className="py-4"> 
+                        <strong>Nome Empresarial:</strong> {empresa.nomeEmpresarial}
+                    </p>
+                    <p className="py-4"> 
+                        <strong>Nome Fantasia:</strong> {empresa.nomeFantasia}
+                    </p>
+                    <p className="py-4">
+                        <strong>CNPJ:</strong> {empresa.cnpj}
+                    </p>
+                    <p className="py-4">
+                        <strong>Inscrição Estadual:</strong> {empresa.inscricaoEstadual}
+                    </p>
+                    <p className="py-4">
+                        <strong>Site:</strong> {empresa.site}
+                    </p>
+                    <p className="py-4">
+                        <strong>Fone:</strong> {empresa.fone}
+                    </p>
+                    <p className="py-4">
+                        <strong>Fone Alternativo:</strong> {empresa.foneAlternativo}
+                    </p>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn">Fechar</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
             <Footer />
         </div>
     );

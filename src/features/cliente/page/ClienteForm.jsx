@@ -8,11 +8,10 @@ import Footer from "../../../shared/components/Footer";
 import Menu from "../../../shared/components/Menu";
 import SaveButton from "../../../shared/components/SaveButton";
 import { atualizar, buscarPorId, cadastrar } from "../../../shared/services/crudService";
-import { MAPPING_CONTROLLER_CLIENTE } from "../service/clienteService";
-
+import { MAPPING_CONTROLLER_CLIENTE } from "../../cliente/service/clienteService";
 export default function ClienteForm() {
-
     const { idCliente } = useParams();
+
     const [cliente, setCliente] = useState({
         id: null,
         nome: "",
@@ -25,13 +24,38 @@ export default function ClienteForm() {
     useEffect(() => {
 
         if (idCliente) {
-           carregarCliente();
-       }
-   }, [idCliente]);
+            carregarCliente();
+        }
+
+    }, [idCliente]);
+
+    async function carregarCliente() {
+
+        try {
+
+            const data = await buscarPorId(
+                MAPPING_CONTROLLER_CLIENTE,
+                idCliente
+            );
+
+            setCliente({
+                id: data.id,
+                nome: data.nome ?? "",
+                cpf: data.cpf ?? "",
+                foneCelular: data.foneCelular ?? "",
+                foneFixo: data.foneFixo ?? "",
+                dataNascimento: data.dataNascimento ?? ""
+            });
+
+        } catch (erro) {
+            toast.error("Erro ao carregar cliente.");
+        }
+    }
 
 
-    async function salvar() {      
-       try {
+    async function salvar() {
+
+            try {
 
            if (idCliente) {
 
@@ -43,60 +67,49 @@ export default function ClienteForm() {
                await cadastrar(MAPPING_CONTROLLER_CLIENTE, cliente);
                toast.success("Cliente cadastrado com sucesso!");
            }
-       } catch (erro) {
-           toast.error("Erro ao salvar cliente.");
-       }
-   }
 
-    async function carregarCliente() {
-       try {
-           const data = await buscarPorId(
-               MAPPING_CONTROLLER_CLIENTE,
-               idCliente
-           );
-
-           setCliente({
-               id: data.id,
-               nome: data.nome ?? "",
-               cpf: data.cpf ?? "",
-               foneCelular: data.foneCelular ?? "",
-               foneFixo: data.foneFixo ?? "",
-               dataNascimento: data.dataNascimento ?? ""
-           });
-
-       } catch (erro) {
-           toast.error("Erro ao carregar cliente.");
-       }
-   }
+        } catch (erro) {
+            toast.error("Erro ao salvar cliente.");
+        }
+    }
 
     return (
+
         <div>
             <Menu />
 
             {idCliente ?
                 <Breadcrumbs items={[
-                { label: "Cliente" },
-                {  label: "Alterar" }
+                    { label: "Cliente" },
+                    { label: "Alterar" }
                 ]} />
                 :
                 <Breadcrumbs items={[
-                { label: "Cliente" },
-                {  label: "Cadastrar" }
+                    { label: "Cliente" },
+                    { label: "Cadastrar" }
                 ]} />
-                }
+            }
 
             <div style={{ marginTop: '40px', marginLeft: '10%', marginRight: '10%' }}>
+
                 <div className="overflow-x-auto shadow-sm">
-                    <div className="flex items-center justify-between mb-6" style={{marginTop: '20px', marginLeft: '10px', marginRight: '10px'}}>
+
+                    <div className="flex items-center justify-between mb-6" style={{ marginTop: '20px', marginLeft: '10px', marginRight: '10px' }}>
+
                         <h1 className="text-3xl font-bold text-gray-800">
                             {idCliente ? "Alterar Cliente" : "Novo Cliente"}
                         </h1>
+
                     </div>
+
                     <div className="divider divider-info" />
-                    <div className="overflow-x-auto" style={{padding: '30px'}}>
+
+                    <div className="overflow-x-auto" style={{ padding: '30px' }}>
                         <form>
+
                             <div className="flex w-full" >
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
+
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="nome">Nome</label>
                                         <input
@@ -104,14 +117,14 @@ export default function ClienteForm() {
                                             id="nome"
                                             className="input input-bordered w-full"
                                             value={cliente.nome}
-                                            onChange={(e) => 
-                                                setCliente({ ...cliente, nome: e.target.value }) 
+                                            onChange={(e) =>
+                                                setCliente({ ...cliente, nome: e.target.value })
                                             }
                                         />
                                     </fieldset>
-                                    
+
                                 </div>
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
 
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="cpf">CPF</label>
@@ -130,7 +143,7 @@ export default function ClienteForm() {
                             </div>
 
                             <div className="flex w-full" >
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
 
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="foneCelular">Fone Celular</label>
@@ -144,9 +157,9 @@ export default function ClienteForm() {
                                             id="foneCelular"
                                         />
                                     </fieldset>
-                                    
+
                                 </div>
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
 
                                     <fieldset className="fieldset w-full">
                                         <label className="fieldset-legend" htmlFor="foneFixo">Fone Fixo</label>
@@ -160,37 +173,36 @@ export default function ClienteForm() {
                                             id="foneFixo"
                                         />
                                     </fieldset>
-                                    
+
                                 </div>
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
 
                                     <fieldset className="fieldset w-full">
                                         <legend className="fieldset-legend" htmlFor="dataNascimento">Data de Nascimento</legend>
-                                        <input 
-                                            type="date"  
-                                            id="dataNascimento" 
+                                        <input
+                                            type="date"
+                                            id="dataNascimento"
                                             className="input input-bordered w-full"
-        value={cliente.dataNascimento} 
-                                            onChange={(e) => 
-                                                setCliente({ ...cliente, dataNascimento: e.target.value }) 
+                                            value={cliente.dataNascimento}
+                                            onChange={(e) =>
+                                                setCliente({ ...cliente, dataNascimento: e.target.value })
                                             }
                                         />
                                     </fieldset>
 
                                 </div>
                             </div>
+                            <div className="flex w-full" >
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
 
-<div className="flex w-full" >
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
-
-                                    <div style={{marginTop: '50px', textAlign: 'left'}}>
+                                    <div style={{ marginTop: '50px', textAlign: 'left' }}>
                                         <BackButton destino="/cliente" />
                                     </div>
-                                    
-                                </div>
-                                <div className="card rounded-box grid grow p-8" style={{padding: '30px'}}>
 
-                                    <div style={{marginTop: '50px', textAlign: 'right'}}>
+                                </div>
+                                <div className="card rounded-box grid grow p-8" style={{ padding: '30px' }}>
+
+                                    <div style={{ marginTop: '50px', textAlign: 'right' }}>
                                         <SaveButton save={() => salvar()} />
                                     </div>
 
@@ -207,4 +219,4 @@ export default function ClienteForm() {
         </div>
 
     );
-    }
+}

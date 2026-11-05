@@ -12,10 +12,12 @@ import { MAPPING_CONTROLLER_PRODUTO } from "../service/produtoService";
 export default function ProdutoPage() {
 
     const [lista, setLista] = useState([]);
+    const [listaCategoria, setListaCategoria] = useState([]);
     const navigate = useNavigate();
     const [produto, setProduto] = useState({
         id: null,
         codigo: "",
+        categoria: "",
         titulo: "",
         descricao: "",
         valorUnitario: "",
@@ -101,6 +103,7 @@ export default function ProdutoPage() {
                             <thead>
                                 <tr style={{ textAlign: 'center' }}>
                                     <th>Código</th>
+                                    <th>Categoria</th>
                                     <th>Título</th>
                                     <th>Valor Unitário</th>
                                     <th>Entrega Mín. (min)</th>
@@ -111,6 +114,7 @@ export default function ProdutoPage() {
                             <tbody>
                                 {lista.map(produto => (
                                     <tr key={produto.id}>
+                                        <td style={{textAlign: 'center'}}>{produto.codigo}</td>
                                         <td style={{ textAlign: 'center' }}>{produto.codigo}</td>
                                         <td style={{ width: '35%' }}>{produto.titulo}</td>
                                         <td style={{ textAlign: 'center' }}>
@@ -136,6 +140,9 @@ export default function ProdutoPage() {
                 <div className="modal-box">   
                     <h3 className="font-bold text-lg">Dados do Produto</h3>
                     <div className="divider" />
+                    <p className="py-4">
+                    <strong>Categoria:</strong> {produto.categoria.descricao}
+                    </p>
                     <p className="py-4"> 
                         <strong>Codigo:</strong> {produto.codigo}
                     </p>
@@ -161,6 +168,25 @@ export default function ProdutoPage() {
                     </div>
                 </div>
             </dialog>
+            
+                <fieldset className="fieldset">
+                <legend className="fieldset-legend">Categoria</legend>
+                <select
+                className="select  w-full"
+                value={produto.idCategoria}
+                onChange={(e) =>
+                setProduto({ ...produto, idCategoria: e.target.value })
+                }
+                >
+                <option value="">Selecione ...</option>
+                {listaCategoria.map((categoria, index) => (
+                <option key={index} value={categoria.id}>
+                {categoria.descricao}
+                </option>
+                ))}
+                </select>
+                </fieldset>
+
             <Footer />
         </div>
     );

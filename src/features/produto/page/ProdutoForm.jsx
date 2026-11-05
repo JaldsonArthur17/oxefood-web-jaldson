@@ -6,11 +6,15 @@ import Breadcrumbs from "../../../shared/components/Breadcrumbs";
 import Footer from "../../../shared/components/Footer";
 import Menu from "../../../shared/components/Menu";
 import SaveButton from "../../../shared/components/SaveButton";
-import { atualizarPorId, buscarPorId, cadastrar } from "../../../shared/services/crudService";
+import { atualizarPorId, buscarPorId, cadastrar, listar } from "../../../shared/services/crudService";
+import { MAPPING_CONTROLLER_CATEGORIA_PRODUTO } from "../../produto/service/categoriaProdutoService";
 import { MAPPING_CONTROLLER_PRODUTO } from "../service/produtoService";
+
+
 export default function ProdutoForm() {
 
     const { idProduto } = useParams();
+    const [listaCategoria, setListaCategoria] = useState([]);
     const [produto, setProduto] = useState({
         codigo: "",
         titulo: "",
@@ -24,13 +28,16 @@ export default function ProdutoForm() {
     if (idProduto) {
         carregarProduto();
     }
+    carregarCategoriasProduto();
+
 }, [idProduto]);
 
-async function carregarProduto() {
+    async function carregarProduto() {
     try {
         const data = await buscarPorId(MAPPING_CONTROLLER_PRODUTO, idProduto);
         setProduto({
             codigo: data.codigo ?? "",
+            idCategoria: data.categoria.id ?? "",
             titulo: data.titulo ?? "",
             descricao: data.descricao ?? "",
             valorUnitario: data.valorUnitario ?? 0,
@@ -55,6 +62,21 @@ async function carregarProduto() {
         toast.error("Erro ao salvar produto.");
     }
 }
+
+    async function carregarCategoriasProduto() {
+
+    try {
+
+    const data = await listar(MAPPING_CONTROLLER_CATEGORIA_PRODUTO);
+    setListaCategoria(data);
+
+    } catch (erro) {
+
+    console.log(erro)
+            toast.error("Erro ao carregar as categorias de produto.");
+    }
+    }
+
 
     return (
 
